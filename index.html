@@ -1,1 +1,59 @@
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eltorkey</title>
+<style>
+body {
+  background: #101522;
+  color: white;
+  font-family: Arial;
+  text-align: center;
+  padding: 40px 15px;
+}
+button {
+  background: #168b55;
+  color: white;
+  padding: 15px 25px;
+  border: 0;
+  border-radius: 10px;
+  font-size: 18px;
+}
+</style>
+</head>
+<body>
+<h1>Eltorkey</h1>
+<h3>مشاركة الموقع</h3>
+<p>اضغط على الزر لمشاركة موقعك بموافقتك.</p>
+<button onclick="shareLocation()">مشاركة موقعي</button>
+<p id="status"></p>
+
+<script>
+function shareLocation() {
+  const status = document.getElementById("status");
+
+  if (!navigator.geolocation) {
+    status.textContent = "المتصفح لا يدعم تحديد الموقع";
+    return;
+  }
+
+  status.textContent = "في انتظار موافقتك...";
+
+  navigator.geolocation.getCurrentPosition(
+    position => {
+      status.textContent =
+        "تم تحديد موقعك بنجاح. خط العرض: " +
+        position.coords.latitude +
+        "، خط الطول: " +
+        position.coords.longitude;
+    },
+    () => {
+      status.textContent = "لم تتم الموافقة على مشاركة الموقع";
+    }
+  );
+}
+</script>
+</body>
+</html>
